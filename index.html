@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOP FF TRẦN TẤN TÀI - Hệ Thống Bán Acc Free Fire Uy Tín</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Orbitron & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        gaming: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            dark: '#07090e',
+                            card: '#0f131f',
+                            border: '#1e263d',
+                            neonCyan: '#00f3ff',
+                            neonPurple: '#bc13fe',
+                            neonGold: '#ffb703',
+                            neonRed: '#ff2a5f'
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2.5s infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'gradient-x': 'gradientX 5s ease infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(0, 243, 255, 0.4), 0 0 30px rgba(188, 19, 254, 0.2)' },
+                            '50%': { boxShadow: '0 0 25px rgba(0, 243, 255, 0.8), 0 0 45px rgba(188, 19, 254, 0.5)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        gradientX: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #07090e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00f3ff, #bc13fe);
+            border-radius: 4px;
+        }
+
+        /* Neon Text Effects */
+        .neon-text-cyan {
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+        .neon-text-gold {
+            text-shadow: 0 0 8px rgba(255, 183, 3, 0.7), 0 0 20px rgba(255, 183, 3, 0.4);
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 8px rgba(188, 19, 254, 0.7), 0 0 20px rgba(188, 19, 254, 0.4);
+        }
+
+        /* Card Hover Effects */
+        .acc-card {
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: linear-gradient(145deg, #111625 0%, #0b0e17 100%);
+        }
+        .acc-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: #00f3ff;
+            box-shadow: 0 12px 30px -5px rgba(0, 243, 255, 0.25), 0 0 15px rgba(188, 19, 254, 0.2);
+        }
+        .acc-card:hover .card-img {
+            transform: scale(1.08);
+        }
+
+        /* Animated Border Button */
+        .btn-cyber {
+            background: linear-gradient(90deg, #00f3ff, #bc13fe, #00f3ff);
+            background-size: 200% auto;
+            transition: 0.4s;
+        }
+        .btn-cyber:hover {
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+        }
+
+        /* Particle Canvas */
+        #bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 19, 31, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-gray-100 font-sans antialiased selection:bg-cyber-neonCyan selection:text-black overflow-x-hidden">
+
+    <!-- Particle Background Canvas -->
+    <canvas id="bg-particles"></canvas>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-cyber-border/80 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyber-neonCyan to-cyber-neonPurple p-0.5 animate-pulse-glow">
+                        <div class="w-full h-full bg-cyber-dark rounded-[10px] flex items-center justify-center">
+                            <i class="fa-solid fa-fire-flame-curved text-2xl text-cyber-neonCyan group-hover:scale-110 transition-transform"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-gaming font-black text-lg sm:text-xl tracking-wider bg-gradient-to-r from-cyber-neonCyan via-white to-cyber-neonPurple bg-clip-text text-transparent neon-text-cyan block leading-none">
+                            SHOP FF TRẦN TẤN TÀI
+                        </span>
+                        <span class="text-[11px] text-gray-400 tracking-widest uppercase font-semibold">Uy Tín • Tự Động 24/7</span>
+                    </div>
+                </a>
+
+                <!-- Contact & Quick Copy Phone (Desktop) -->
+                <div class="hidden md:flex items-center gap-4">
+                    <div class="flex items-center gap-3 bg-cyber-card/90 border border-cyber-border px-4 py-2 rounded-xl">
+                        <div class="w-8 h-8 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center animate-bounce">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] text-gray-400 leading-tight">Hotline / Zalo Admin</p>
+                            <p class="font-gaming font-bold text-cyber-neonGold tracking-wider text-sm">0999988888</p>
+                        </div>
+                        <button onclick="copyPhone('0999988888')" class="ml-2 px-3 py-1.5 rounded-lg bg-cyber-neonCyan/10 hover:bg-cyber-neonCyan hover:text-black text-cyber-neonCyan border border-cyber-neonCyan/40 text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer" title="Sao chép số điện thoại">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <a href="#danh-sach-acc" class="btn-cyber text-black font-gaming font-bold text-xs uppercase px-5 py-3 rounded-xl tracking-wider shadow-lg">
+                        <i class="fa-solid fa-bolt mr-1"></i> Mua Acc Ngay
+                    </a>
+                </div>
+
+                <!-- Mobile Contact Action -->
+                <div class="flex md:hidden items-center gap-2">
+                    <button onclick="copyPhone('0999988888')" class="px-3 py-2 rounded-xl bg-cyber-card border border-cyber-neonCyan/50 text-cyber-neonCyan text-xs font-gaming font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-phone"></i> 0999988888
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+        
+        <!-- Hero Banner Section -->
+        <section class="relative pt-8 pb-12 sm:pt-12 sm:pb-16 overflow-hidden">
+            <!-- Decorative Glow Orbs -->
+            <div class="absolute top-10 left-1/4 w-72 h-72 bg-cyber-neonCyan/15 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-cyber-neonPurple/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative rounded-3xl border border-cyber-border bg-gradient-to-r from-[#0e1322] via-[#13192e] to-[#1a102c] p-6 sm:p-10 lg:p-12 overflow-hidden shadow-2xl">
+                    <!-- Grid Pattern Overlay -->
+                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#00f3ff 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <!-- Banner Text -->
+                        <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-neonRed/15 border border-cyber-neonRed/40 text-cyber-neonRed text-xs font-bold uppercase tracking-wider">
+                                <span class="w-2 h-2 rounded-full bg-cyber-neonRed animate-ping"></span>
+                                Khuyến Mãi Đại Lễ • Giảm Sốc Lên Đến 50%
+                            </div>
+                            
+                            <h1 class="font-gaming font-black text-3xl sm:text-5xl lg:text-6xl leading-tight text-white">
+                                SIÊU SHOP ACC FF <br>
+                                <span class="bg-gradient-to-r from-cyber-neonCyan via-cyber-neonGold to-cyber-neonPurple bg-clip-text text-transparent neon-text-cyan">
+                                    TRẦN TẤN TÀI
+                                </span>
+                            </h1>
+
+                            <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                                Cung cấp tài khoản Free Fire VIP, Súng Nâng Cấp Lv.7, Trang Phục Cựu Chiến Binh, Acc Trắng Thông Tin 100%. Giao dịch trực tiếp uy tín qua Admin Trần Tấn Tài.
+                            </p>
+
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                                <a href="#danh-sach-acc" class="btn-cyber text-black font-gaming font-extrabold text-sm px-7 py-4 rounded-xl uppercase tracking-wider flex items-center gap-2 shadow-xl">
+                                    <i class="fa-solid fa-gamepad text-lg"></i> Khám Phá Kho Acc
+                                </a>
+                                <button onclick="copyPhone('0999988888')" class="px-6 py-4 rounded-xl bg-cyber-card hover:bg-white/10 border border-cyber-neonGold/50 text-cyber-neonGold font-gaming font-bold text-sm flex items-center gap-2 transition-all cursor-pointer">
+                                    <i class="fa-solid fa-headset"></i> Zalo: 0999988888
+                                </button>
+                            </div>
+
+                            <!-- Trust Badges -->
+                            <div class="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 max-w-lg mx-auto lg:mx-0">
+                                <div>
+                                    <p class="font-gaming font-bold text-lg sm:text-xl text-cyber-neonCyan">100%</p>
+                                    <p class="text-xs text-gray-400">Trắng Thông Tin</p>
+                                </div>
+                                <div>
+                                    <p class="font-gaming font-bold text-lg sm:text-xl text-cyber-neonGold">24/7</p>
+                                    <p class="text-xs text-gray-400">Hỗ Trợ Siêu Tốc</p>
+                                </div>
+                                <div>
+                                    <p class="font-gaming font-bold text-lg sm:text-xl text-cyber-neonPurple">15.000+</p>
+                                    <p class="text-xs text-gray-400">Khách Đã Mua</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banner Feature Showcase Card -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            <div class="relative w-full max-w-md animate-float">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-cyber-neonCyan via-cyber-neonPurple to-cyber-neonGold rounded-2xl blur opacity-60"></div>
+                                <div class="relative bg-cyber-card border border-white/15 rounded-2xl p-4 overflow-hidden">
+                                    <div class="relative rounded-xl overflow-hidden aspect-video mb-4">
+                                        <img src="https://placehold.co/600x360/0f172a/00f3ff?text=VIP+MP40+MANG+XA+LV.7" 
+                                             onerror="this.src='https://placehold.co/600x360/1e293b/ffffff?text=FREE+FIRE+VIP'"
+                                             alt="Acc VIP Nổi Bật" class="w-full h-full object-cover">
+                                        <span class="absolute top-3 left-3 bg-cyber-neonRed text-white text-xs font-gaming font-bold px-3 py-1 rounded-lg shadow-lg">
+                                            HOT DEAL -40%
+                                        </span>
+                                        <span class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-md text-cyber-neonGold text-xs font-bold px-3 py-1 rounded-lg border border-cyber-neonGold/40">
+                                            Rank: Huyền Thoại
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h3 class="font-gaming font-bold text-white text-base">ACC SIÊU VIP #FF01</h3>
+                                            <p class="text-xs text-gray-400">MP40 Mãng Xà • Scar Cá Mập Đen</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="text-xs text-gray-500 line-through block">1.500.000đ</span>
+                                            <span class="font-gaming font-black text-lg text-cyber-neonCyan">890.000đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Filter Section -->
+        <section id="danh-sach-acc" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+            <div class="glass-panel border border-cyber-border rounded-2xl p-5 sm:p-6 shadow-xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5 pb-4 border-b border-cyber-border">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-cyber-neonCyan/15 border border-cyber-neonCyan/40 flex items-center justify-center text-cyber-neonCyan">
+                            <i class="fa-solid fa-sliders text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-gaming font-bold text-lg sm:text-xl text-white">BỘ LỌC TÌM KIẾM ACC FF</h2>
+                            <p class="text-xs text-gray-400">Chọn mức giá, bậc rank hoặc skin súng yêu thích</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-400 bg-cyber-dark/80 px-4 py-2 rounded-xl border border-cyber-border">
+                        Hiển thị <span id="acc-count" class="font-gaming font-bold text-cyber-neonCyan text-sm">0</span> tài khoản sẵn sàng
+                    </div>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Search Keyword -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1.5">Tìm theo tên / Mã số</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="text" id="filter-search" placeholder="VD: MP40, Scar, #FF01..." 
+                                class="w-full bg-cyber-dark border border-cyber-border focus:border-cyber-neonCyan rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-500 outline-none transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Price Filter -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1.5">Khoảng giá tiền</label>
+                        <select id="filter-price" class="w-full bg-cyber-dark border border-cyber-border focus:border-cyber-neonCyan rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors cursor-pointer">
+                            <option value="all">Tất cả mức giá</option>
+                            <option value="under-200">Dưới 200.000đ (Học sinh)</option>
+                            <option value="200-500">Từ 200.000đ - 500.000đ</option>
+                            <option value="500-1000">Từ 500.000đ - 1.000.000đ</option>
+                            <option value="over-1000">Trên 1.000.000đ (Siêu VIP)</option>
+                        </select>
+                    </div>
+
+                    <!-- Rank Filter -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1.5">Mức Rank hiện tại</label>
+                        <select id="filter-rank" class="w-full bg-cyber-dark border border-cyber-border focus:border-cyber-neonCyan rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors cursor-pointer">
+                            <option value="all">Tất cả bậc Rank</option>
+                            <option value="Thách Đấu">Thách Đấu</option>
+                            <option value="Huyền Thoại">Huyền Thoại</option>
+                            <option value="Kim Cương">Kim Cương</option>
+                            <option value="Bạch Kim">Bạch Kim</option>
+                        </select>
+                    </div>
+
+                    <!-- Skin Filter -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1.5">Skin súng nổi bật</label>
+                        <select id="filter-skin" class="w-full bg-cyber-dark border border-cyber-border focus:border-cyber-neonCyan rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors cursor-pointer">
+                            <option value="all">Tất cả Skin Súng</option>
+                            <option value="MP40 Mãng Xà">MP40 Mãng Xà</option>
+                            <option value="Scar Cá Mập Đen">Scar Cá Mập Đen</option>
+                            <option value="AK Rồng Xanh">AK Rồng Xanh</option>
+                            <option value="M1887 Vũ Trụ">M1887 Vũ Trụ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Reset Filter Button -->
+                <div class="mt-4 flex justify-end">
+                    <button onclick="resetFilters()" class="text-xs text-gray-400 hover:text-cyber-neonCyan flex items-center gap-1.5 transition-colors cursor-pointer">
+                        <i class="fa-solid fa-rotate-right"></i> Đặt lại bộ lọc
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accounts Grid Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+            <div id="accounts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Cards will be dynamically injected here via JavaScript -->
+            </div>
+
+            <!-- Empty State (when no filter matches) -->
+            <div id="empty-state" class="hidden text-center py-16 glass-panel rounded-2xl border border-cyber-border">
+                <i class="fa-solid fa-ghost text-5xl text-gray-600 mb-4"></i>
+                <h3 class="font-gaming font-bold text-xl text-white mb-2">Không tìm thấy tài khoản phù hợp!</h3>
+                <p class="text-gray-400 text-sm mb-6">Vui lòng thử thay đổi điều kiện lọc hoặc liên hệ trực tiếp Zalo 0999988888 để đặt tìm acc theo yêu cầu.</p>
+                <button onclick="resetFilters()" class="btn-cyber text-black font-gaming font-bold text-xs px-6 py-3 rounded-xl uppercase">
+                    Xem Tất Cả Tài Khoản
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 bg-[#05070b] border-t border-cyber-border pt-12 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-10 border-b border-white/10">
+                <!-- Col 1: Brand -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyber-neonCyan to-cyber-neonPurple flex items-center justify-center text-black font-bold text-xl">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <span class="font-gaming font-black text-lg text-white tracking-wider">SHOP FF TRẦN TẤN TÀI</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Hệ thống cung cấp tài khoản Free Fire uy tín hàng đầu Việt Nam. Cam kết bảo hành trọn đời, thông tin sạch 100%, hỗ trợ đổi mật khẩu nhanh chóng.
+                    </p>
+                </div>
+
+                <!-- Col 2: Quick Support -->
+                <div class="space-y-4">
+                    <h4 class="font-gaming font-bold text-white text-sm uppercase tracking-wider">Hỗ Trợ Khách Hàng</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-cyber-neonCyan"></i> Bảo hành trắng thông tin 100%</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-bolt text-cyber-neonGold"></i> Giao dịch trực tiếp - Nhận acc sau 30s</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-headset text-cyber-neonPurple"></i> Chăm sóc khách hàng 24/7</li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Direct Contact -->
+                <div class="space-y-4">
+                    <h4 class="font-gaming font-bold text-white text-sm uppercase tracking-wider">Liên Hệ Admin Trực Tiếp</h4>
+                    <div class="bg-cyber-card border border-cyber-border rounded-2xl p-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400">Chủ Shop:</p>
+                                <p class="font-bold text-white">Trần Tấn Tài</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-green-500/20 text-green-400 text-xs font-semibold">Online</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-white/10">
+                            <div>
+                                <p class="text-xs text-gray-400">Hotline / Zalo:</p>
+                                <p class="font-gaming font-bold text-cyber-neonGold text-base">0999988888</p>
+                            </div>
+                            <button onclick="copyPhone('0999988888')" class="px-3.5 py-2 rounded-xl bg-cyber-neonCyan text-black font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer">
+                                <i class="fa-regular fa-copy mr-1"></i> Copy SĐT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+                <p>&copy; 2026 <span class="text-gray-300 font-semibold">SHOP FF TRẦN TẤN TÀI</span>. All rights reserved.</p>
+                <p>Thiết kế & Vận hành bởi <span class="text-cyber-neonCyan font-semibold">Trần Tấn Tài</span> • Hotline: 0999988888</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Account Detail & Purchase Modal -->
+    <div id="purchase-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-opacity">
+        <div class="relative w-full max-w-2xl bg-cyber-card border border-cyber-neonCyan/50 rounded-3xl shadow-[0_0_50px_rgba(0,243,255,0.25)] overflow-hidden transform transition-all scale-95 opacity-0" id="modal-box">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-4 bg-cyber-dark border-b border-cyber-border">
+                <div class="flex items-center gap-2.5">
+                    <span id="modal-code" class="px-2.5 py-1 rounded-lg bg-cyber-neonCyan/20 text-cyber-neonCyan font-gaming font-bold text-xs">#FF01</span>
+                    <h3 id="modal-title" class="font-gaming font-bold text-white text-base sm:text-lg truncate">Chi Tiết Tài Khoản</h3>
+                </div>
+                <button onclick="closeModal()" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-cyber-neonRed hover:text-white text-gray-400 flex items-center justify-center transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 max-h-[82vh] overflow-y-auto space-y-6">
+                <!-- Preview Image & Price Banner -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-center">
+                    <div class="relative rounded-2xl overflow-hidden border border-white/10 aspect-video sm:aspect-square">
+                        <img id="modal-img" src="" alt="Preview Acc" class="w-full h-full object-cover">
+                        <div class="absolute bottom-2 left-2 right-2 bg-black/75 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-white/10 flex justify-between items-center">
+                            <span class="text-xs text-gray-300">Tình trạng:</span>
+                            <span class="text-xs font-bold text-green-400"><i class="fa-solid fa-circle-check mr-1"></i>Trắng thông tin</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="bg-cyber-dark/90 border border-cyber-border rounded-2xl p-4">
+                            <span class="text-xs text-gray-400 block mb-1">Giá bán ưu đãi:</span>
+                            <div class="flex items-baseline gap-2.5">
+                                <span id="modal-price" class="font-gaming font-black text-2xl sm:text-3xl text-cyber-neonCyan neon-text-cyan">890.000đ</span>
+                                <span id="modal-old-price" class="text-xs text-gray-500 line-through">1.500.000đ</span>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Specs -->
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between py-1.5 border-b border-white/5">
+                                <span class="text-gray-400"><i class="fa-solid fa-trophy text-cyber-neonGold w-5"></i> Bậc Rank:</span>
+                                <span id="modal-rank" class="font-bold text-white">Huyền Thoại</span>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-white/5">
+                                <span class="text-gray-400"><i class="fa-solid fa-gun text-cyber-neonCyan w-5"></i> Súng Nâng Cấp:</span>
+                                <span id="modal-gun" class="font-bold text-cyber-neonCyan text-right">MP40 Mãng Xà Lv.7</span>
+                            </div>
+                            <div class="flex justify-between py-1.5 border-b border-white/5">
+                                <span class="text-gray-400"><i class="fa-solid fa-shirt text-cyber-neonPurple w-5"></i> Trang Phục:</span>
+                                <span id="modal-outfit" class="font-bold text-white text-right">Full Set Quỷ Dạ Xoa</span>
+                            </div>
+                            <div class="flex justify-between py-1.5">
+                                <span class="text-gray-400"><i class="fa-solid fa-id-card text-green-400 w-5"></i> Đăng nhập:</span>
+                                <span id="modal-login" class="font-semibold text-gray-200">Facebook / VK Trắng</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Contact & Payment Instruction Box -->
+                <div class="bg-gradient-to-r from-cyber-neonCyan/10 via-cyber-neonPurple/10 to-cyber-neonGold/10 border border-cyber-neonCyan/30 rounded-2xl p-4 sm:p-5 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-cyber-neonGold/20 text-cyber-neonGold flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-bolt-lightning text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-gaming font-bold text-white text-sm">THANH TOÁN & NHẬN ACC TRỰC TIẾP</h4>
+                            <p class="text-xs text-gray-300 mt-1 leading-relaxed">
+                                Để đảm bảo an toàn tuyệt đối và nhận thông tin đăng nhập ngay lập tức, quý khách vui lòng liên hệ trực tiếp Zalo/SĐT của Admin <strong class="text-white">Trần Tấn Tài</strong> kèm theo mã số tài khoản <strong id="modal-code-text" class="text-cyber-neonCyan">#FF01</strong>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Phone & Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-cyber-dark p-3.5 rounded-xl border border-cyber-border">
+                        <div class="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-start">
+                            <i class="fa-solid fa-phone-volume text-green-400 text-xl animate-pulse"></i>
+                            <div>
+                                <span class="text-[11px] text-gray-400 block">Zalo / Hotline Giao Dịch:</span>
+                                <span class="font-gaming font-black text-lg text-cyber-neonGold tracking-wider">0999988888</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <button onclick="copyPhone('0999988888')" class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+                                <i class="fa-regular fa-copy"></i> Copy SĐT
+                            </button>
+                            <a href="https://zalo.me/0999988888" target="_blank" rel="noopener noreferrer" class="flex-1 sm:flex-initial btn-cyber text-black font-gaming font-bold text-xs px-5 py-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-lg">
+                                <i class="fa-solid fa-comment-dots"></i> Chat Zalo Mua Ngay
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // 1. Sample Free Fire Accounts Data
+        const accountsData = [
+            {
+                id: 1,
+                code: "#FF01",
+                title: "Acc VIP MP40 Mãng Xà Lv.7 + Full Set Huyền Thoại",
+                price: 890000,
+                oldPrice: 1500000,
+                rank: "Huyền Thoại",
+                gunSkin: "MP40 Mãng Xà",
+                gunDetail: "MP40 Mãng Xà Lv.7, M1014 Long Tộc",
+                outfit: "Quỷ Dạ Xoa, Samurai Bóng Đêm",
+                loginType: "Facebook Trắng Thông Tin",
+                badge: "SIÊU VIP",
+                badgeColor: "bg-cyber-neonRed",
+                image: "https://placehold.co/600x400/0f172a/00f3ff?text=MP40+MANG+XA+LV.7"
+            },
+            {
+                id: 2,
+                code: "#FF02",
+                title: "Acc Scar Cá Mập Đen Lv.7 Max Hiệu Ứng",
+                price: 750000,
+                oldPrice: 1250000,
+                rank: "Thách Đấu",
+                gunSkin: "Scar Cá Mập Đen",
+                gunDetail: "Scar Cá Mập Đen Lv.7, UMP Phong Cách",
+                outfit: "Thần Chết, Áo Khoác Biker",
+                loginType: "VK Trắng Thông Tin",
+                badge: "HOT",
+                badgeColor: "bg-cyber-neonPurple",
+                image: "https://placehold.co/600x400/131129/bc13fe?text=SCAR+CA+MAP+DEN+LV.7"
+            },
+            {
+                id: 3,
+                code: "#FF03",
+                title: "Acc Cựu Chiến Binh Đời Đầu Cực Hiếm",
+                price: 1200000,
+                oldPrice: 2000000,
+                rank: "Thách Đấu",
+                gunSkin: "AK Rồng Xanh",
+                gunDetail: "AK Rồng Xanh Lv.7, MP40 Bích Vàng",
+                outfit: "Áo Cựu Chiến Binh, Mũ Cối Cổ",
+                loginType: "Facebook Trắng Thông Tin",
+                badge: "CỰC HIẾM",
+                badgeColor: "bg-cyber-neonGold text-black",
+                image: "https://placehold.co/600x400/1f1608/ffb703?text=ACC+CUU+CHIEN+BINH"
+            },
+            {
+                id: 4,
+                code: "#FF04",
+                title: "Acc Giá Rẻ Học Sinh - Có Súng Nâng Cấp",
+                price: 150000,
+                oldPrice: 300000,
+                rank: "Kim Cương",
+                gunSkin: "M1887 Vũ Trụ",
+                gunDetail: "M1887 Vũ Trụ Hủy Diệt, Scar Titan",
+                outfit: "Set Đạo Chích, Nhiều Áo Sự Kiện",
+                loginType: "Facebook Trắng Thông Tin",
+                badge: "GIÁ RẺ",
+                badgeColor: "bg-green-500 text-black",
+                image: "https://placehold.co/600x400/071f18/10b981?text=ACC+HOC+SINH+150K"
+            },
+            {
+                id: 5,
+                code: "#FF05",
+                title: "Acc Combo 2 Súng Lv.7: AK Rồng Xanh & MP40",
+                price: 1350000,
+                oldPrice: 2200000,
+                rank: "Thách Đấu",
+                gunSkin: "AK Rồng Xanh",
+                gunDetail: "AK Rồng Xanh Lv.7 + MP40 Mãng Xà Lv.7",
+                outfit: "Full Bộ Criminal Đỏ, Set Tiệc Bãi Biển",
+                loginType: "Facebook Trắng Thông Tin",
+                badge: "TOP 1 VIP",
+                badgeColor: "bg-cyber-neonRed",
+                image: "https://placehold.co/600x400/1e0b16/ff2a5f?text=COMBO+2+SUNG+LV.7"
+            },
+            {
+                id: 6,
+                code: "#FF06",
+                title: "Acc Tâm Trung Leo Rank Huyền Thoại",
+                price: 350000,
+                oldPrice: 600000,
+                rank: "Huyền Thoại",
+                gunSkin: "M1887 Vũ Trụ",
+                gunDetail: "M1887 Vũ Trụ, XM8 Lôi Thần",
+                outfit: "Set Ninja Bóng Tối, Hành Động Cắm Cờ",
+                loginType: "VK Trắng Thông Tin",
+                badge: "BÁN CHẠY",
+                badgeColor: "bg-cyber-neonCyan text-black",
+                image: "https://placehold.co/600x400/0b192c/00f3ff?text=M1887+VU+TRU+350K"
+            },
+            {
+                id: 7,
+                code: "#FF07",
+                title: "Acc Khởi Nghiệp Siêu Hời Cho Tân Thủ",
+                price: 120000,
+                oldPrice: 250000,
+                rank: "Bạch Kim",
+                gunSkin: "Scar Cá Mập Đen",
+                gunDetail: "Scar Cá Mập Đen Lv.4, MP40 Cơ Khí",
+                outfit: "150+ Trang Phục Đẹp, 3 Trợ Thủ",
+                loginType: "Facebook Trắng Thông Tin",
+                badge: "SALE 50%",
+                badgeColor: "bg-green-500 text-black",
+                image: "https://placehold.co/600x400/0f172a/38bdf8?text=ACC+TAN+THU+120K"
+            },
+            {
+                id: 8,
+                code: "#FF08",
+                title: "Acc Đại Gia Full Tủ Đồ & Nhiều Hành Động",
+                price: 950000,
+                oldPrice: 1600000,
+                rank: "Huyền Thoại",
+                gunSkin: "MP40 Mãng Xà",
+                gunDetail: "MP40 Mãng Xà Lv.6, Groza Sắc Màu",
+                outfit: "450+ Trang Phục, Full Thẻ Vô Cực",
+                loginType: "Facebook Trắng Thông Tin",
+                badge: "VIP",
+                badgeColor: "bg-cyber-neonPurple",
+                image: "https://placehold.co/600x400/190e29/c084fc?text=ACC+DAI+GIA+VIP"
+            }
+        ];
+
+        // Format currency VND
+        function formatVND(amount) {
+            return amount.toLocaleString('vi-VN') + 'đ';
+        }
+
+        // 2. Render Accounts Grid
+        function renderAccounts(list) {
+            const grid = document.getElementById('accounts-grid');
+            const emptyState = document.getElementById('empty-state');
+            const countEl = document.getElementById('acc-count');
+
+            countEl.textContent = list.length;
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = list.map(acc => `
+                <div class="acc-card border border-cyber-border rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <!-- Thumbnail Image -->
+                        <div class="relative aspect-[16/10] overflow-hidden bg-cyber-dark">
+                            <img src="${acc.image}" 
+                                 onerror="this.src='https://placehold.co/600x400/0f172a/00f3ff?text=FREE+FIRE+ACC'"
+                                 alt="${acc.title}" 
+                                 class="card-img w-full h-full object-cover transition-transform duration-500">
+                            
+                            <!-- Code & Status Badges -->
+                            <div class="absolute top-3 left-3 flex items-center gap-2">
+                                <span class="px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-cyber-neonCyan/40 text-cyber-neonCyan font-gaming font-bold text-xs">
+                                    ${acc.code}
+                                </span>
+                                <span class="px-2.5 py-1 rounded-lg ${acc.badgeColor} font-gaming font-bold text-[10px] uppercase tracking-wider shadow-md">
+                                    ${acc.badge}
+                                </span>
+                            </div>
+
+                            <!-- Rank Tag -->
+                            <div class="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/10 text-xs font-semibold text-cyber-neonGold flex items-center gap-1.5">
+                                <i class="fa-solid fa-trophy text-[11px]"></i> ${acc.rank}
+                            </div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-4 space-y-3">
+                            <h3 class="font-gaming font-bold text-white text-sm line-clamp-2 group-hover:text-cyber-neonCyan transition-colors min-h-[2.5rem]">
+                                ${acc.title}
+                            </h3>
+
+                            <!-- Key Specs -->
+                            <div class="space-y-1.5 text-xs text-gray-400 bg-cyber-dark/70 p-3 rounded-xl border border-white/5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="text-gray-500 shrink-0"><i class="fa-solid fa-gun text-cyber-neonCyan mr-1"></i>Súng:</span>
+                                    <span class="text-gray-200 font-medium truncate">${acc.gunDetail}</span>
+                                </div>
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="text-gray-500 shrink-0"><i class="fa-solid fa-shirt text-cyber-neonPurple mr-1"></i>Đồ:</span>
+                                    <span class="text-gray-200 font-medium truncate">${acc.outfit}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer: Price & Action -->
+                    <div class="px-4 pb-4 pt-1 flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-[11px] text-gray-500 line-through block">${formatVND(acc.oldPrice)}</span>
+                            <span class="font-gaming font-black text-lg text-cyber-neonCyan">${formatVND(acc.price)}</span>
+                        </div>
+                        <button onclick="openModal(${acc.id})" class="btn-cyber text-black font-gaming font-extrabold text-xs px-4 py-2.5 rounded-xl uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-md">
+                            <i class="fa-solid fa-cart-shopping"></i> Mua Ngay
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 3. Filter Logic
+        function filterAccounts() {
+            const keyword = document.getElementById('filter-search').value.toLowerCase().trim();
+            const priceRange = document.getElementById('filter-price').value;
+            const rankFilter = document.getElementById('filter-rank').value;
+            const skinFilter = document.getElementById('filter-skin').value;
+
+            const filtered = accountsData.filter(acc => {
+                // Keyword match
+                const matchKeyword = !keyword || 
+                    acc.title.toLowerCase().includes(keyword) || 
+                    acc.code.toLowerCase().includes(keyword) ||
+                    acc.gunDetail.toLowerCase().includes(keyword);
+
+                // Price match
+                let matchPrice = true;
+                if (priceRange === 'under-200') matchPrice = acc.price < 200000;
+                else if (priceRange === '200-500') matchPrice = acc.price >= 200000 && acc.price <= 500000;
+                else if (priceRange === '500-1000') matchPrice = acc.price > 500000 && acc.price <= 1000000;
+                else if (priceRange === 'over-1000') matchPrice = acc.price > 1000000;
+
+                // Rank match
+                const matchRank = rankFilter === 'all' || acc.rank === rankFilter;
+
+                // Skin match
+                const matchSkin = skinFilter === 'all' || acc.gunSkin === skinFilter;
+
+                return matchKeyword && matchPrice && matchRank && matchSkin;
+            });
+
+            renderAccounts(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-search').value = '';
+            document.getElementById('filter-price').value = 'all';
+            document.getElementById('filter-rank').value = 'all';
+            document.getElementById('filter-skin').value = 'all';
+            renderAccounts(accountsData);
+            showToast('Đã đặt lại bộ lọc tìm kiếm!', 'info');
+        }
+
+        // Attach event listeners to filters
+        document.getElementById('filter-search').addEventListener('input', filterAccounts);
+        document.getElementById('filter-price').addEventListener('change', filterAccounts);
+        document.getElementById('filter-rank').addEventListener('change', filterAccounts);
+        document.getElementById('filter-skin').addEventListener('change', filterAccounts);
+
+        // 4. Modal Controls
+        function openModal(accId) {
+            const acc = accountsData.find(item => item.id === accId);
+            if (!acc) return;
+
+            document.getElementById('modal-code').textContent = acc.code;
+            document.getElementById('modal-code-text').textContent = acc.code;
+            document.getElementById('modal-title').textContent = acc.title;
+            document.getElementById('modal-img').src = acc.image;
+            document.getElementById('modal-price').textContent = formatVND(acc.price);
+            document.getElementById('modal-old-price').textContent = formatVND(acc.oldPrice);
+            document.getElementById('modal-rank').textContent = acc.rank;
+            document.getElementById('modal-gun').textContent = acc.gunDetail;
+            document.getElementById('modal-outfit').textContent = acc.outfit;
+            document.getElementById('modal-login').textContent = acc.loginType;
+
+            const modal = document.getElementById('purchase-modal');
+            const modalBox = document.getElementById('modal-box');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Animate entrance
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95', 'opacity-0');
+                modalBox.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('purchase-modal');
+            const modalBox = document.getElementById('modal-box');
+
+            modalBox.classList.remove('scale-100', 'opacity-100');
+            modalBox.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('purchase-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // 5. Copy Phone Number (Compatible with iFrames using execCommand)
+        function copyPhone(phoneNumber) {
+            const tempInput = document.createElement('input');
+            tempInput.value = phoneNumber;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                showToast(`Đã sao chép SĐT/Zalo: ${phoneNumber}`, 'success');
+            } catch (err) {
+                showToast(`SĐT Admin: ${phoneNumber}`, 'info');
+            }
+            
+            document.body.removeChild(tempInput);
+        }
+
+        // 6. Custom Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const borderColor = type === 'success' ? 'border-cyber-neonCyan' : 'border-cyber-neonGold';
+            const iconClass = type === 'success' ? 'fa-circle-check text-cyber-neonCyan' : 'fa-circle-info text-cyber-neonGold';
+
+            toast.className = `pointer-events-auto flex items-center gap-3 bg-cyber-card/95 backdrop-blur-md border ${borderColor} text-white px-4 py-3 rounded-xl shadow-2xl transform transition-all duration-300 translate-y-4 opacity-0`;
+            toast.innerHTML = `
+                <i class="fa-solid ${iconClass} text-lg"></i>
+                <span class="text-xs sm:text-sm font-semibold">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Slide in
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            });
+
+            // Auto remove after 3s
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // 7. Interactive Neon Particle Background Canvas
+        function initParticles() {
+            const canvas = document.getElementById('bg-particles');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            const colors = ['#00f3ff', '#bc13fe', '#ffb703'];
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.6;
+                    this.speedY = (Math.random() - 0.5) * 0.6;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.alpha = Math.random() * 0.5 + 0.1;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                    if (this.y > canvas.height) this.y = 0;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            const particleCount = Math.min(60, Math.floor(window.innerWidth / 22));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderAccounts(accountsData);
+            initParticles();
+        };
+    </script>
+</body>
+</html>
